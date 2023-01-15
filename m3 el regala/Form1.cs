@@ -37,6 +37,7 @@ namespace m3_el_regala
         int IntervalCounter;
         int Count = 0;
         int w = 0;
+        bool move = false;
         public Form1()
         {
             InitializeComponent();
@@ -107,6 +108,7 @@ namespace m3_el_regala
             CoinGravity();
             CoinChecker();
             CheckForDeletion();
+            MoveHero();
             Count++;
             DoubleBuffer(this.CreateGraphics());
         }
@@ -116,6 +118,26 @@ namespace m3_el_regala
             offImage = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
             IntervalCounter = R.Next(0, 10);
             Player = new Hero(new Bitmap("Player/PrimitivePlayerIdleRight/PlayerIdle (1).png"), 0, this.ClientSize.Height - 34);
+        }
+
+        void MoveHero()
+        {
+            if(!move)
+            {
+                Player.X += 5;
+                if(Player.X + Player.Img.Width>=this.ClientSize.Width)
+                {
+                    move = !move;
+                }
+            }
+            else
+            {
+                Player.X -= 5;
+                if(Player.X<=0)
+                {
+                    move = !move;
+                }
+            }
         }
         void DoubleBuffer(Graphics g)
         {
